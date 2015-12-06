@@ -1,0 +1,22 @@
+{
+  "name": "societycms/module-menu",
+  "description": "The SocietyCMS Menu module.",
+  "keywords": ["cms", "societycms"],
+  "license": "AGPL",
+  "version": "0.0.1",
+  "type": "societycms-module",
+  "authors": [
+    {
+      "name": "Ralph Huwiler",
+      "email": "ralph@huwiler.rocks"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Modules\\Menu\\": ""
+    }
+  },
+  "require": {
+    "pingpong/menus": "^2.1"
+  }
+}
