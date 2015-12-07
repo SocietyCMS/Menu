@@ -8,7 +8,6 @@ interface MenuExtender
 {
     /**
      * @param MenuRepository $menuItems
-     *
      */
     public function extendWith(MenuRepository $menuItems);
 }

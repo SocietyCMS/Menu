@@ -1,4 +1,6 @@
-<?php namespace Modules\Menu\Providers;
+<?php
+
+namespace Modules\Menu\Providers;
 
 use Modules\Core\Providers\RoutingServiceProvider as CoreRoutingServiceProvider;
 
@@ -24,7 +26,7 @@ class RouteServiceProvider extends CoreRoutingServiceProvider
      */
     protected function getBackendRoute()
     {
-        return __DIR__ . '/../Http/backendRoutes.php';
+        return __DIR__.'/../Http/backendRoutes.php';
     }
 
     /**
@@ -32,6 +34,6 @@ class RouteServiceProvider extends CoreRoutingServiceProvider
      */
     protected function getApiRoute()
     {
-        return __DIR__ . '/../Http/apiRoutes.php';
+        return __DIR__.'/../Http/apiRoutes.php';
     }
 }
