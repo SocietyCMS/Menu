@@ -1,24 +1,25 @@
-<?php namespace Modules\Menu\Repositories\Eloquent;
+<?php
+
+namespace Modules\Menu\Repositories\Eloquent;
 
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
 class EloquentMenuRepository extends EloquentBaseRepository
 {
-
     /**
-     * Specify Model class name
+     * Specify Model class name.
      *
      * @return string
      */
-    function model()
+    public function model()
     {
-        return "Modules\\Menu\\Entities\\Menu";
+        return 'Modules\\Menu\\Entities\\Menu';
     }
 
     public function get($id)
     {
         return $this->findWhere([
-            'uuid' => $id
+            'uuid' => $id,
         ])->first();
     }
 }

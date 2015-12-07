@@ -8,12 +8,10 @@ use Pingpong\Menus\MenuBuilder;
 use Pingpong\Menus\MenuItem;
 
 /**
- * Class MenuRepository
- * @package Modules\Menu\Repositories\Menu
+ * Class MenuRepository.
  */
 class MenuRepository
 {
-
     /**
      * All of the menu items.
      *
@@ -24,7 +22,7 @@ class MenuRepository
     /**
      * The constructor.
      *
-     * @param Factory $views
+     * @param Factory    $views
      * @param Repository $config
      */
     public function __construct(Repository $config)
@@ -32,10 +30,11 @@ class MenuRepository
         $this->config = $config;
     }
 
-
     /**
-     * Create MenuItem for specified menu
+     * Create MenuItem for specified menu.
+     *
      * @param $name
+     *
      * @return MenuItem
      */
     public function menu($name)
@@ -48,7 +47,7 @@ class MenuRepository
     }
 
     /**
-     * Create MenuItem for Main Menu
+     * Create MenuItem for Main Menu.
      *
      * @return MenuItem
      */
@@ -58,7 +57,7 @@ class MenuRepository
     }
 
     /**
-     * Get all of the menus
+     * Get all of the menus.
      *
      * @return array
      */
@@ -68,21 +67,22 @@ class MenuRepository
     }
 
     /**
-     * Generate Item uuid
+     * Generate Item uuid.
      *
      * @param $menuName
      * @param $itemURL
+     *
      * @return string
      */
     public function getItemUuiD($menuItem)
     {
         $itemID = '';
-        if(is_a($menuItem, MenuItem::class)){
-            $itemID = "MenuItem".$menuItem->getURL();
+        if (is_a($menuItem, MenuItem::class)) {
+            $itemID = 'MenuItem'.$menuItem->getURL();
         }
 
-        if(is_a($menuItem, MenuBuilder::class)){
-            $itemID = "MenuBuilder".$menuItem->getName();
+        if (is_a($menuItem, MenuBuilder::class)) {
+            $itemID = 'MenuBuilder'.$menuItem->getName();
         }
 
         return Str::limit(md5(Str::slug($itemID)), 12, null);

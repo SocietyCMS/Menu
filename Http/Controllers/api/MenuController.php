@@ -1,12 +1,14 @@
-<?php namespace Modules\Menu\Http\Controllers\api;
+<?php
+
+namespace Modules\Menu\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\ApiBaseController;
 use Modules\Menu\Repositories\Eloquent\EloquentMenuRepository;
 use Modules\Menu\Repositories\MenuBuilder;
 
-class MenuController extends ApiBaseController {
-
+class MenuController extends ApiBaseController
+{
     /**
      * @var MenuRepository
      */
@@ -26,6 +28,7 @@ class MenuController extends ApiBaseController {
 
     /**
      * @param Request $request
+     *
      * @return mixed
      */
     public function store(Request $request)
@@ -33,7 +36,7 @@ class MenuController extends ApiBaseController {
         foreach ($request->order as $order => $uuid) {
             $this->eloquentMenuModel->firstOrCreate(['uuid' => $uuid])
             ->update([
-                'order' => $order+100
+                'order' => $order + 100,
             ]);
         }
 

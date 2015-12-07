@@ -2,11 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Kalnoy\Nestedset\NestedSet;
 
 class CreateMenuTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -35,5 +33,4 @@ class CreateMenuTable extends Migration
     {
         Schema::drop('menu_menu');
     }
-
 }

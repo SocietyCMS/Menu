@@ -1,4 +1,6 @@
-<?php namespace Modules\Menu\Providers;
+<?php
+
+namespace Modules\Menu\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Menu;
@@ -12,7 +14,6 @@ class BackendMenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         Menu::create('backend', function ($menu) {
             $menu->setPresenter('Pingpong\Menus\Presenters\Bootstrap\NavbarRightPresenter');
             $menu->route(
@@ -25,7 +26,5 @@ class BackendMenuServiceProvider extends ServiceProvider
 
     public function register()
     {
-
     }
-
 }

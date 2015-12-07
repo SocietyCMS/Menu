@@ -1,5 +1,6 @@
-<?php namespace Modules\Menu\Providers;
+<?php
 
+namespace Modules\Menu\Providers;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
@@ -8,8 +9,7 @@ use Modules\Menu\Repositories\MenuBuilder;
 use Pingpong\Modules\Contracts\RepositoryInterface;
 
 /**
- * Class MenuServiceProvider
- * @package Modules\Menu\Providers
+ * Class MenuServiceProvider.
  */
 class MenuServiceProvider extends ServiceProvider
 {
@@ -56,10 +56,10 @@ class MenuServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../Config/config.php' => config_path('menu.php'),
+            __DIR__.'/../Config/config.php' => config_path('menu.php'),
         ]);
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/config.php', 'menu'
+            __DIR__.'/../Config/config.php', 'menu'
         );
     }
 
@@ -72,10 +72,10 @@ class MenuServiceProvider extends ServiceProvider
     {
         $viewPath = base_path('resources/views/modules/menu');
 
-        $sourcePath = __DIR__ . '/../Resources/views';
+        $sourcePath = __DIR__.'/../Resources/views';
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ]);
 
         $this->loadViewsFrom([$viewPath, $sourcePath], 'menu');
@@ -93,12 +93,12 @@ class MenuServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'menu');
         } else {
-            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'menu');
+            $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'menu');
         }
     }
 
     /**
-     * Define de MenuBuilder
+     * Define de MenuBuilder.
      */
     private function defineMenuBuilder()
     {
@@ -106,7 +106,7 @@ class MenuServiceProvider extends ServiceProvider
             'Modules\Menu\Repositories\Menu\MenuRepository', $menuRepository = app(MenuRepository::class)
         );
 
-        if (! $this->app['society.isInstalled']) {
+        if (!$this->app['society.isInstalled']) {
             return;
         }
 
@@ -116,14 +116,13 @@ class MenuServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register all Menus provided by Modules implementing a MenuExtender
-     *
+     * Register all Menus provided by Modules implementing a MenuExtender.
      */
     private function registerMenus(MenuRepository $menuRepository)
     {
         foreach ($this->modules->enabled() as $module) {
             $name = studly_case($module->getName());
-            $class = 'Modules\\' . $name . '\\MenuExtenders\\MenuExtender';
+            $class = 'Modules\\'.$name.'\\MenuExtenders\\MenuExtender';
 
             if (class_exists($class)) {
                 $extender = $this->container->make($class);
@@ -132,7 +131,6 @@ class MenuServiceProvider extends ServiceProvider
         }
     }
 
-
     /**
      * Get the services provided by the provider.
      *
@@ -140,8 +138,6 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array();
+        return [];
     }
-
-
 }

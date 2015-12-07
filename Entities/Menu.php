@@ -1,10 +1,11 @@
-<?php namespace Modules\Menu\Entities;
+<?php
+
+namespace Modules\Menu\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-
     /**
      * Indicates if the model should be timestamped.
      *
@@ -19,10 +20,9 @@ class Menu extends Model
      */
     protected $table = 'menu_menu';
     /**
-     * The fillable properties of the model
+     * The fillable properties of the model.
      *
      * @var array
      */
     protected $fillable = ['id', 'uuid', 'order', 'title', 'show'];
-
 }
