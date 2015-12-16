@@ -33,8 +33,6 @@ class MenuBuilder
         $this->eloquentMenuModel = $eloquentMenuModel;
     }
 
-    //TODO Performance
-
     /**
      * Build the menu structure.
      *
@@ -54,6 +52,9 @@ class MenuBuilder
         }
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getStructuredMenu()
     {
         $menuCollection = collect();
@@ -68,6 +69,10 @@ class MenuBuilder
         return $menuCollection;
     }
 
+    /**
+     * @param $menu
+     * @return mixed
+     */
     public function addEloquentProperties($menu)
     {
         $menuItems = $menu->toCollection()->each(function ($item, $key) {
@@ -85,6 +90,10 @@ class MenuBuilder
         return $menuItems;
     }
 
+    /**
+     * @param $menuItems
+     * @return mixed
+     */
     public function orderMenuItems($menuItems)
     {
         return $menuItems->sortBy('order')->values()->all();
