@@ -2,6 +2,7 @@
 
 namespace Modules\Menu\Providers;
 
+use Cache;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Modules\Menu\Repositories\Menu\MenuRepository;
@@ -56,10 +57,10 @@ class MenuServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('menu.php'),
+            __DIR__ . '/../Config/config.php' => config_path('menu.php'),
         ]);
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'menu'
+            __DIR__ . '/../Config/config.php', 'menu'
         );
     }
 
@@ -72,7 +73,7 @@ class MenuServiceProvider extends ServiceProvider
     {
         $viewPath = base_path('resources/views/modules/menu');
 
-        $sourcePath = __DIR__.'/../Resources/views';
+        $sourcePath = __DIR__ . '/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath,
@@ -93,7 +94,7 @@ class MenuServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'menu');
         } else {
-            $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'menu');
+            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'menu');
         }
     }
 
@@ -122,7 +123,7 @@ class MenuServiceProvider extends ServiceProvider
     {
         foreach ($this->modules->enabled() as $module) {
             $name = studly_case($module->getName());
-            $class = 'Modules\\'.$name.'\\MenuExtenders\\MenuExtender';
+            $class = 'Modules\\' . $name . '\\MenuExtenders\\MenuExtender';
 
             if (class_exists($class)) {
                 $extender = $this->container->make($class);

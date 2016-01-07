@@ -3,9 +3,13 @@
 namespace Modules\Menu\Repositories\Eloquent;
 
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
-class EloquentMenuRepository extends EloquentBaseRepository
+class EloquentMenuRepository extends EloquentBaseRepository implements CacheableInterface
 {
+    use CacheableRepository;
+
     /**
      * Specify Model class name.
      *
