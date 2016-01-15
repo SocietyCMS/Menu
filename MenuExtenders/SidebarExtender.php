@@ -39,7 +39,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->icon('fa fa-bars');
                 $item->route('backend::menu.menu.index');
                 $item->authorize(
-                    $this->auth->hasAccess('menu.menu.index')
+                    $this->auth->can('menu::manage-menu')
                 );
             });
 
