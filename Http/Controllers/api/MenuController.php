@@ -22,7 +22,7 @@ class MenuController extends ApiBaseController
     public function __construct(MenuBuilder $menu, EloquentMenuRepository $eloquentMenuModel)
     {
         parent::__construct();
-        $this->menu = $menu;
+        $this->menu              = $menu;
         $this->eloquentMenuModel = $eloquentMenuModel;
     }
 
@@ -34,10 +34,10 @@ class MenuController extends ApiBaseController
     public function store(Request $request)
     {
         foreach ($request->order as $order => $uuid) {
-            $this->eloquentMenuModel->firstOrCreate(['uuid' => $uuid])
-            ->update([
-                'order' => $order + 100,
-            ]);
+            $this->eloquentMenuModel->createOrUpdate(
+                ['uuid' => $uuid],
+                ['order' => $order + 100]
+            );
         }
 
         return $this->successUpdated();
