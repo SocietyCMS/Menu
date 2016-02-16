@@ -107,7 +107,7 @@ class MenuServiceProvider extends ServiceProvider
             'Modules\Menu\Repositories\Menu\MenuRepository', $menuRepository = app(MenuRepository::class)
         );
 
-        if (!$this->app['society.isInstalled']) {
+        if (!$this->app['society.isInstalled'] || \App::runningInConsole()) {
             return;
         }
 
