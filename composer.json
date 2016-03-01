@@ -17,6 +17,7 @@
     }
   },
   "require": {
-    "pingpong/menus": "^2.1"
+    "pingpong/menus": "^2.1",
+    "baum/baum": "~1.1"
   }
 }
