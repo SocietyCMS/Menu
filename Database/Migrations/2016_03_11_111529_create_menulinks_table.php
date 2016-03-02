@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMenuItemsTable extends Migration
+class CreateMenuLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,17 @@ class CreateMenuItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_menuitems', function (Blueprint $table) {
+        Schema::create('menu__menulinks', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('menu_id')->unsigned();
-            $table->foreign('menu_id')->references('id')->on('menu__menus')->onDelete('cascade');
-
-            $table->string('name');
 
             $table->integer('parent_id')->nullable();
             $table->integer('lft')->nullable();
             $table->integer('rgt')->nullable();
             $table->integer('depth')->nullable();
 
-            $table->string('title')->nullable();
-
+            $table->string('title');
             $table->string('target');
 
             $table->integer('subject_id')->index();
@@ -45,6 +41,6 @@ class CreateMenuItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('menu_menuitems');
+        Schema::drop('menu__menulinks');
     }
 }

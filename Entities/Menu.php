@@ -6,23 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'menu_menu';
+    protected $table = 'menu__menus';
     /**
      * The fillable properties of the model.
      *
      * @var array
      */
-    protected $fillable = ['id', 'uuid', 'order', 'title', 'show'];
+    protected $fillable = ['title'];
+
+    /**
+     * Get the items for the menu.
+     */
+    public function links()
+    {
+        return $this->hasMany('Modules\Menu\Entities\Menulink');
+    }
 }

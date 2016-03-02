@@ -6,59 +6,15 @@
 
 @section('content')
 
-	@foreach($menus as $menuName => $menu)
-		<h2 class="ui dividing header" data-id="{{$menuName}}">{{ucfirst($menuName)}}</h2>
+	<a class="ui primary button">
+		<i class="add user icon"></i>
+		New Menu
+	</a>
 
-		<div class="ui list" id="{{$menuName}}">
-			@foreach($menu as $item)
-				<div class="item" data-id="{{$item->uuid}}">
-					<div class="ui segment">
-						<i class="small sidebar icon drag-handle"></i>
-						{{$item->title}}
-					</div>
-				</div>
-			@endforeach
-		</div>
-
-	@endforeach
+	<div id="tree1"></div>
 
 @stop
 
 @section('javascript')
-	<script>
-
-		$('.ui.list').disableSelection();
-
-		var el = document.getElementById('main');
-
-		Sortable.create(el, {
-			handle: '.drag-handle',
-			animation: 150,
-			dataIdAttr: 'data-id',
-
-			onEnd: function (evt) {
-				VueInstance.update('main', this.toArray());
-			}
-		});
-
-		VueInstance = new Vue({
-			el: '#societyAdmin',
-			data: {
-				gallery:null,
-				meta:null
-			},
-			methods: {
-				update: function (menuID, itemOrder) {
-
-					var resource = this.$resource('{{apiRoute('v1', 'api.menu.menu.store')}}');
-
-					resource.save({}, {menuID:menuID, order: itemOrder}, function (data, status, request) {
-					}).error(function (data, status, request) {
-					});
-				}
-			}
-
-		});
-
-	</script>
-@stop
+	<script src="{{\Pingpong\Modules\Facades\Module::asset('menu:bundle.js')}}"></script>
+@endsection

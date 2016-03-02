@@ -4,26 +4,20 @@ namespace Modules\Menu\Http\Controllers\backend;
 
 use Modules\Core\Http\Controllers\AdminBaseController;
 use Modules\Menu\Entities\Menu;
-use Modules\Menu\Repositories\Menu\MenuRepository;
-use Modules\Menu\Repositories\MenuBuilder;
+use Modules\Menu\Entities\Menulink;
 
 class MenuController extends AdminBaseController
 {
-    /**
-     * @var MenuRepository
-     */
-    protected $menu;
-
-    public function __construct(MenuBuilder $menu)
-    {
-        parent::__construct();
-        $this->menu = $menu;
-    }
 
     public function index()
     {
-        $menus = $this->menu->getStructuredMenu();
-
+        $menus = Menu::all();
         return view('menu::backend.index', compact('menus'));
+    }
+
+    public function show($id)
+    {
+        $menu = Menulink::roots()->where('menu_id' , $id)->first()->getDescendantsAndSelf()->toHierarchy();
+        return view('menu::backend.show', compact('menu'));
     }
 }

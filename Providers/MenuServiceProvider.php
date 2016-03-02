@@ -34,10 +34,6 @@ class MenuServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerTranslations();
         $this->registerViews();
-
-        $this->app->booted(function () {
-            $this->defineMenuBuilder();
-        });
     }
 
     /**
