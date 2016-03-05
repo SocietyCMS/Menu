@@ -63,16 +63,7 @@
 
 	'use strict';
 
-	var data = [{
-	    label: 'Main', id: 1,
-	    children: [{ label: 'About Us', id: 2 }, { label: 'Contact', id: 3 }, { label: 'Support', id: 4 }]
-	}, {
-	    label: 'Footer', id: 5,
-	    children: [{ label: 'About Us', id: 6 }, { label: 'Contact', id: 7 }, { label: 'Support', id: 8 }]
-	}];
-
 	$('#tree1').tree({
-	    data: data,
 	    autoOpen: true,
 	    dragAndDrop: true,
 	    onCanMove: function onCanMove(node) {
@@ -105,6 +96,14 @@
 	        // a node was deselected
 	        // e.previous_node contains the deselected node
 	    }
+	}).bind('tree.move', function (event) {
+	    var resource = Vue.resource('/api/menu/menu');
+	    resource.save({ tree: $(this).tree('toJson') });
+	});
+
+	var resource = Vue.resource('/api/menu/menu');
+	resource.get(function (response) {
+	    $('#tree1').tree('loadData', response.data);
 	});
 
 /***/ },

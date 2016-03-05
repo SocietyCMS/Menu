@@ -11,13 +11,12 @@ class MenuController extends AdminBaseController
 
     public function index()
     {
-        $menus = Menu::all();
-        return view('menu::backend.index', compact('menus'));
+        return view('menu::backend.index');
     }
 
     public function show($id)
     {
-        $menu = Menulink::roots()->where('menu_id' , $id)->first()->getDescendantsAndSelf()->toHierarchy();
+        $menu = Menu::roots()->where('menu_id' , $id)->first()->getDescendantsAndSelf()->toHierarchy();
         return view('menu::backend.show', compact('menu'));
     }
 }

@@ -18,6 +18,6 @@
   },
   "require": {
     "pingpong/menus": "^2.1",
-    "baum/baum": "~1.1"
+    "gazsp/baum": "~1.1"
   }
 }

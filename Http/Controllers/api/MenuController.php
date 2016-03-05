@@ -4,8 +4,10 @@ namespace Modules\Menu\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\ApiBaseController;
+use Modules\Menu\Entities\Menu;
 use Modules\Menu\Repositories\Eloquent\EloquentMenuRepository;
 use Modules\Menu\Repositories\MenuBuilder;
+use Modules\Menu\Transformers\MenuTransformer;
 
 class MenuController extends ApiBaseController
 {
@@ -31,15 +33,24 @@ class MenuController extends ApiBaseController
      *
      * @return mixed
      */
+    public function index(Request $request)
+    {
+        $menu = Menu::roots()->get()->each(function ($item, $key) {
+            return $item->getDescendantsAndSelf();
+        });
+
+        return $this->response()->collection($menu, new MenuTransformer());
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed
+     */
     public function store(Request $request)
     {
-        foreach ($request->order as $order => $uuid) {
-            $this->eloquentMenuModel->createOrUpdate(
-                ['uuid' => $uuid],
-                ['order' => $order + 100]
-            );
-        }
-
+        Menu::buildTree(json_decode($request->tree, true));
+        Menu::rebuild();
         return $this->successUpdated();
     }
 }

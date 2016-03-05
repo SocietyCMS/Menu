@@ -40,7 +40,8 @@ module.exports = {
     },
     plugins: [
         new BrowserSyncPlugin({
-            proxy: 'societycms.dev'
+            proxy: 'societycms.dev',
+            reloadDelay: 1000
         }),
         new WebpackPublishPlugin({
             module: 'Menu'
