@@ -39,8 +39,12 @@ $('#tree1').bind(
 ).bind(
     'tree.move',
     function(event) {
+        event.preventDefault();
+        event.move_info.do_move();
         var resource = Vue.resource('/api/menu/menu');
-        resource.save({tree: $(this).tree('toJson')});
+        resource.save({tree: $(this).tree('toJson')}).then(function (response) {
+            toastr.success('Successfully saved', 'Success', {timeOut: 1000, preventDuplicates:true, progressBar:false});
+        });
     }
 );
 

@@ -11,9 +11,24 @@
 		New Menu
 	</a>
 
-	<div id="tree1"></div>
+	<div class="ui hidden divider"></div>
 
-@stop
+	<div class="ui grid">
+		<div class="ten wide column">
+			<div id="tree1"></div>
+		</div>
+		<div class="six wide column">
+			<div class="ui segment">
+				<div class="ui huge fluid input">
+					<input type="text" value="Blog">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+@endsection
 
 @section('javascript')
 	<script src="{{\Pingpong\Modules\Facades\Module::asset('menu:bundle.js')}}"></script>
