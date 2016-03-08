@@ -11,6 +11,7 @@ class MenuTransformer extends Fractal\TransformerAbstract
     public function transform(Menu $menu)
     {
         return [
+            'id'     => $menu->id,
             'name'   => $menu->name,
             'target' => $menu->target,
 

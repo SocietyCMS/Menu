@@ -50,7 +50,29 @@ class MenuController extends ApiBaseController
     public function store(Request $request)
     {
         Menu::buildTree(json_decode($request->tree, true));
-        Menu::rebuild();
         return $this->successUpdated();
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function show(Request $request, $id)
+    {
+        $menuItem = Menu::where('id', $id)->first();
+        return $this->response()->item($menuItem, new MenuTransformer());
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function update(Request $request, $id)
+    {
+        $menuItem = Menu::where('id', $id)->first();
+        $menuItem->update($request->input());
+        return $this->response()->item($menuItem, new MenuTransformer());
     }
 }

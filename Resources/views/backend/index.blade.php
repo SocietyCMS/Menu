@@ -17,10 +17,10 @@
 		<div class="ten wide column">
 			<div id="tree1"></div>
 		</div>
-		<div class="six wide column">
+		<div class="six wide column" v-if="selectedNode">
 			<div class="ui segment">
 				<div class="ui huge fluid input">
-					<input type="text" value="Blog">
+					<input type="text" v-model="selectedNode.name"  @keyup="updateNode | debounce 500">
 				</div>
 			</div>
 		</div>
