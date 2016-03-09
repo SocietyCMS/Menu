@@ -96,8 +96,16 @@
 	}).bind('tree.move', function (event) {
 	    event.preventDefault();
 	    event.move_info.do_move();
+
+	    var data = {
+	        node: event.move_info.moved_node.id,
+	        target: event.move_info.target_node.id,
+	        position: event.move_info.position,
+	        previous_parent: event.move_info.previous_parent.id
+	    };
+
 	    var resource = Vue.resource('/api/menu/menu');
-	    resource.save({ tree: $(this).tree('toJson') }).then(function (response) {
+	    resource.save(data).then(function (response) {
 	        toastr.success('Successfully saved', 'Success', {
 	            timeOut: 1000,
 	            preventDuplicates: true,
@@ -125,6 +133,10 @@
 	            }.bind(this));
 	        },
 	        selectNode: function selectNode(node) {
+	            if (node == null) {
+	                return this.selectedNode = null;
+	            }
+
 	            var resource = this.$resource('/api/menu/menu/:id');
 	            resource.get({ id: node.id }, function (response) {
 	                this.selectedNode = response.data;

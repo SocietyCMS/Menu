@@ -24,7 +24,7 @@ class MenuController extends ApiBaseController
     public function __construct(MenuBuilder $menu, EloquentMenuRepository $eloquentMenuModel)
     {
         parent::__construct();
-        $this->menu              = $menu;
+        $this->menu = $menu;
         $this->eloquentMenuModel = $eloquentMenuModel;
     }
 
@@ -35,9 +35,7 @@ class MenuController extends ApiBaseController
      */
     public function index(Request $request)
     {
-        $menu = Menu::roots()->get()->each(function ($item, $key) {
-            return $item->getDescendantsAndSelf();
-        });
+        $menu = Menu::defaultOrder()->get()->toTree();
 
         return $this->response()->collection($menu, new MenuTransformer());
     }
@@ -49,7 +47,24 @@ class MenuController extends ApiBaseController
      */
     public function store(Request $request)
     {
-        Menu::buildTree(json_decode($request->tree, true));
+        $node = Menu::where('id', $request->node)->first();
+        $target = Menu::where('id', $request->target)->first();
+
+        if ($request->position == 'after') {
+            $node->afterNode($target)->save();
+        }
+
+        if ($request->position == 'inside') {
+            $before = $target->getDescendants()->first();
+
+            $node->appendTo($target);
+
+            if (! is_null($before)) {
+                $node->beforeNode($before);
+            }
+            $node->save();
+        }
+
         return $this->successUpdated();
     }
 

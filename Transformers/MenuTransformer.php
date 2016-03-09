@@ -21,7 +21,7 @@ class MenuTransformer extends Fractal\TransformerAbstract
 
     private function transformChildren(Menu $menu)
     {
-        return $menu->children()->get()->map(function ($item, $key) {
+        return $menu->children->map(function ($item, $key) {
             return $this->transform($item);
         });
     }
