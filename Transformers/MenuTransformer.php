@@ -13,7 +13,13 @@ class MenuTransformer extends Fractal\TransformerAbstract
         return [
             'id'     => $menu->id,
             'name'   => $menu->name,
+
+            'url' => $menu->url,
+
             'target' => $menu->target,
+            'active' => (bool) $menu->active,
+
+            'useSubject' => (bool) $menu->useSubject,
 
             'children' => $this->transformChildren($menu),
         ];

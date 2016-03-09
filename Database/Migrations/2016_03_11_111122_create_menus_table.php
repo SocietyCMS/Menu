@@ -17,7 +17,12 @@ class CreateMenusTable extends Migration
             $table->increments('id');
 
             $table->string('name');
+            $table->string('url');
             $table->string('target');
+            
+
+            $table->boolean('active');
+            $table->boolean('useSubject');
 
             $table->integer('subject_id')->index();
             $table->string('subject_type')->index();

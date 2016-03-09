@@ -63,7 +63,9 @@
 
 	'use strict';
 
-	$('#tree1').tree({
+	var $tree = $('#tree1');
+
+	$tree.tree({
 	    autoOpen: true,
 	    dragAndDrop: true,
 	    onCanMove: function onCanMove(node) {
@@ -86,7 +88,7 @@
 	    }
 	});
 
-	$('#tree1').bind('tree.select', function (event) {
+	$tree.bind('tree.select', function (event) {
 	    if (event.node) {
 	        var node = event.node;
 	        MenuVueApp.selectNode(node);
@@ -104,8 +106,8 @@
 	        previous_parent: event.move_info.previous_parent.id
 	    };
 
-	    var resource = Vue.resource('/api/menu/menu');
-	    resource.save(data).then(function (response) {
+	    var resource = Vue.resource('/api/menu/node/:id');
+	    resource.update({ id: data.node }, data).then(function (response) {
 	        toastr.success('Successfully saved', 'Success', {
 	            timeOut: 1000,
 	            preventDuplicates: true,
@@ -129,7 +131,12 @@
 	            var resource = this.$resource('/api/menu/menu');
 	            resource.get(function (response) {
 	                this.menu = response.data;
-	                $('#tree1').tree('loadData', this.menu);
+	                $tree.tree('loadData', this.menu);
+
+	                if (this.selectedNode) {
+	                    var node = $tree.tree('getNodeById', this.selectedNode.id);
+	                    $tree.tree('selectNode', node);
+	                }
 	            }.bind(this));
 	        },
 	        selectNode: function selectNode(node) {
@@ -137,25 +144,38 @@
 	                return this.selectedNode = null;
 	            }
 
-	            var resource = this.$resource('/api/menu/menu/:id');
+	            var resource = this.$resource('/api/menu/node/:id');
 	            resource.get({ id: node.id }, function (response) {
 	                this.selectedNode = response.data;
+
+	                if (this.selectedNode.useSubject) {
+	                    $('.ui.accordion').accordion('open', 0);
+	                    $('.ui.accordion').accordion('close others');
+	                } else {
+	                    $('.ui.accordion').accordion('open', 1);
+	                    $('.ui.accordion').accordion('close others');
+	                }
 	            }.bind(this));
 	        },
 
 
 	        updateNode: function updateNode() {
 
-	            var resource = this.$resource('/api/menu/menu/:id');
+	            var resource = this.$resource('/api/menu/node/:id');
 	            resource.update({ id: this.selectedNode.id }, this.selectedNode, function (response) {
 	                this.reloadTree();
 	            }.bind(this));
-
-	            console.log(this.selectedNode);
-	            console.log(this.menu);
 	        }
 	    }
 	});
+
+	setTimeout(function () {
+	    $('.ui.accordion').accordion().first().accordion({
+	        onOpen: function onOpen(e) {
+	            MenuVueApp.selectedNode.useSubject = $(this).data().usesubject;
+	        }
+	    });
+	}, 200);
 
 /***/ },
 /* 3 */

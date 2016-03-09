@@ -19,7 +19,7 @@ class Menu extends Node
      *
      * @var array
      */
-    protected $fillable = ['name', 'target', 'menu_id', 'parent_id', 'lft', 'rgt', 'depth'];
+    protected $fillable = ['name', 'url', 'target', 'active',  'useSubject', 'menu_id', 'parent_id', 'lft', 'rgt', 'depth'];
 
     /**
      * Get the items for the menu.
