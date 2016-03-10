@@ -47,8 +47,8 @@ $tree.bind(
             previous_parent:event.move_info.previous_parent.id
         };
 
-        var resource = Vue.resource('/api/menu/node/:id');
-        resource.update({id:data.node}, data).then(function (response) {
+        var resource = Vue.resource(societycms.api.menu.node.update);
+        resource.update({node:data.node}, data).then(function (response) {
             toastr.success('Successfully saved', 'Success', {
                 timeOut: 1000,
                 preventDuplicates: true,
@@ -70,7 +70,7 @@ var MenuVueApp = new Vue({
     },
     methods: {
         reloadTree() {
-            var resource = this.$resource('/api/menu/menu');
+            var resource = this.$resource(societycms.api.menu.menu.index);
             resource.get(function (response) {
                 this.menu = response.data;
                 $tree.tree('loadData', this.menu);
@@ -88,8 +88,8 @@ var MenuVueApp = new Vue({
                 return this.selectedNode = null;
             }
 
-            var resource = this.$resource('/api/menu/node/:id');
-            resource.get({id:node.id},function (response) {
+            var resource = this.$resource(societycms.api.menu.node.show);
+            resource.get({node:node.id},function (response) {
                 this.selectedNode = response.data;
 
                 if(this.selectedNode.useSubject) {
@@ -107,8 +107,8 @@ var MenuVueApp = new Vue({
 
         updateNode: function () {
 
-            var resource = this.$resource('/api/menu/node/:id');
-            resource.update({id:this.selectedNode.id}, this.selectedNode,function (response) {
+            var resource = this.$resource(societycms.api.menu.node.update);
+            resource.update({node:this.selectedNode.id}, this.selectedNode,function (response) {
                 this.reloadTree();
             }.bind(this));
 
