@@ -95,8 +95,6 @@ var MenuVueApp = new Vue({
                 if(this.selectedNode.useSubject) {
                     $('.ui.accordion').accordion('open', 0);
                     $('.ui.accordion').accordion('close others');
-
-
                 } else {
                     $('.ui.accordion').accordion('open', 1);
                     $('.ui.accordion').accordion('close others');

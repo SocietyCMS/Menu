@@ -26,11 +26,11 @@
 				<div class="ui hidden divider"></div>
 
 				<div class="ui styled fluid accordion">
-					<div class="title active" >
+					<div class="title" >
 						<i class="dropdown icon"></i>
 						Link to Content
 					</div>
-					<div class="content active" data-useSubject="true">
+					<div class="content" data-useSubject="true">
 
 						<div class="ui fluid search selection dropdown">
 							<input type="hidden" name="user">
