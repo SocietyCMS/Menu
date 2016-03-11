@@ -19,6 +19,7 @@ class NodeTransformer extends Fractal\TransformerAbstract
             'target' => $menu->target,
             'active' => (bool) $menu->active,
 
+            'subject' => $this->transformSubject($menu),
             'useSubject' => (bool) $menu->useSubject,
 
             'parent' => $menu->parent_id,
@@ -32,4 +33,12 @@ class NodeTransformer extends Fractal\TransformerAbstract
             return $this->transform($item);
         });
     }
+
+    private function transformSubject(Menu $menu) {
+        return serialize([
+            'subject_id' => $menu->subject_id,
+            'subject_type' => $menu->subject_type
+        ]);
+    }
+
 }

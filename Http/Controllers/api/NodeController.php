@@ -50,7 +50,7 @@ class NodeController extends ApiBaseController
         $node = Menu::where('id', $id)->first();
 
         $this->moveNode($request, $node);
-        $node->update($request->input());
+        $this->updateNode($request, $node);
 
         return $this->response()->item($node, new NodeTransformer());
     }
@@ -81,5 +81,15 @@ class NodeController extends ApiBaseController
             }
             $node->save();
         }
+    }
+
+    protected function updateNode(Request $request, $node)
+    {
+        if($request->useSubject) {
+            $subject = unserialize($request->subject);
+            $node->subject_type = $subject['subject_type'];
+            $node->subject_id = $subject['subject_id'];
+        }
+        $node->update($request->input());
     }
 }

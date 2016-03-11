@@ -7,14 +7,27 @@ use Modules\Menu\Repositories\Menu\MenuBuilder;
 
 class MenuController extends AdminBaseController
 {
+    /**
+     * @var MenuBuilder
+     */
+    private $menuBuilder;
+
+    /**
+     * MenuController constructor.
+     * @param MenuBuilder $menuBuilder
+     */
+    public function __construct(MenuBuilder $menuBuilder)
+    {
+        $this->menuBuilder = $menuBuilder;
+    }
+
 
     /**
      * @return mixed
      */
     public function index()
     {
-        $extender = app(MenuBuilder::class);
-        $extenders = $extender->get();
+        $extenders = $this->menuBuilder->getItemProviders();
         return view('menu::backend.index', compact('extenders'));
     }
 }

@@ -151,7 +151,8 @@
 	                    id: null,
 	                    name: null,
 	                    url: null,
-	                    active: null
+	                    active: null,
+	                    subject: null
 	                };
 	            }
 
@@ -160,9 +161,11 @@
 	                this.selectedNode = response.data;
 
 	                if (this.selectedNode.useSubject) {
+	                    $('.ui.dropdown').dropdown('set selected', this.selectedNode.subject);
 	                    $('.ui.accordion').accordion('open', 0);
 	                    $('.ui.accordion').accordion('close others');
 	                } else {
+	                    $('.ui.dropdown').dropdown('clear');
 	                    $('.ui.accordion').accordion('open', 1);
 	                    $('.ui.accordion').accordion('close others');
 	                }
@@ -171,6 +174,7 @@
 
 
 	        updateNode: function updateNode() {
+
 	            var resource = this.$resource(societycms.api.menu.node.update);
 	            resource.update({ node: this.selectedNode.id }, this.selectedNode, function (response) {
 	                this.reloadTree();
@@ -203,6 +207,13 @@
 	    $('.ui.accordion').accordion().first().accordion({
 	        onOpen: function onOpen(e) {
 	            MenuVueApp.selectedNode.useSubject = $(this).data().usesubject;
+	        }
+	    });
+
+	    $('.ui.dropdown').dropdown({
+	        onChange: function onChange(value, text, $selectedItem) {
+	            MenuVueApp.selectedNode.subject = value;
+	            MenuVueApp.updateNode();
 	        }
 	    });
 	}, 200);

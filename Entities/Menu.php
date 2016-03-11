@@ -22,11 +22,11 @@ class Menu extends Node
     protected $fillable = ['name', 'url', 'target', 'active',  'useSubject', 'lft', 'rgt', 'depth'];
 
     /**
-     * Get the items for the menu.
+     * Get all of the staff member's photos.
      */
-    public function links()
+    public function subject()
     {
-        return $this->hasMany('Modules\Menu\Entities\Menulink');
+        return $this->morphTo();
     }
 
 }

@@ -95,7 +95,8 @@ var MenuVueApp = new Vue({
                     id: null,
                         name: null,
                         url: null,
-                        active:null
+                        active:null,
+                        subject:null
                 };
             }
 
@@ -104,9 +105,11 @@ var MenuVueApp = new Vue({
                 this.selectedNode = response.data;
 
                 if(this.selectedNode.useSubject) {
+                    $('.ui.dropdown').dropdown('set selected', this.selectedNode.subject);
                     $('.ui.accordion').accordion('open', 0);
                     $('.ui.accordion').accordion('close others');
                 } else {
+                    $('.ui.dropdown').dropdown('clear');
                     $('.ui.accordion').accordion('open', 1);
                     $('.ui.accordion').accordion('close others');
                 }
@@ -115,6 +118,7 @@ var MenuVueApp = new Vue({
         },
 
         updateNode: function () {
+
             var resource = this.$resource(societycms.api.menu.node.update);
             resource.update({node:this.selectedNode.id}, this.selectedNode,function (response) {
                 this.reloadTree();
@@ -139,7 +143,6 @@ var MenuVueApp = new Vue({
     }
 });
 
-
 $('#createLinkModal')
     .modal('attach events', '#createLink', 'show');
 
@@ -152,4 +155,12 @@ setTimeout(function() {
             MenuVueApp.selectedNode.useSubject = $(this).data().usesubject;
         }
     });
+
+    $('.ui.dropdown')
+        .dropdown({
+            onChange: function(value, text, $selectedItem) {
+                MenuVueApp.selectedNode.subject = value;
+                MenuVueApp.updateNode();
+            }
+        });
 }, 200);

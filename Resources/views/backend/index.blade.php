@@ -38,7 +38,7 @@
 					<div class="content" data-useSubject="true">
 
 						<div class="ui fluid search selection dropdown">
-							<input type="hidden" name="user">
+							<input type="hidden" name="subject">
 							<i class="dropdown icon"></i>
 							<div class="default text">Select Content</div>
 							<div class="menu">
@@ -50,8 +50,8 @@
 									</div>
 
 									@foreach($collection as $item)
-										<div class="item" data-model="jenny">
-											{{$item->getNameForMenuItem()}}
+										<div class="item" data-value="{{$item['subject']}}">
+											{{$item['name']}}
 										</div>
 									@endforeach
 								@endforeach
