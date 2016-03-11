@@ -11,22 +11,6 @@ use Modules\Menu\Transformers\MenuTransformer;
 
 class MenuController extends ApiBaseController
 {
-    /**
-     * @var MenuRepository
-     */
-    protected $menu;
-
-    /**
-     * @var EloquentMenuRepository
-     */
-    protected $eloquentMenuModel;
-
-    public function __construct(MenuBuilder $menu, EloquentMenuRepository $eloquentMenuModel)
-    {
-        parent::__construct();
-        $this->menu = $menu;
-        $this->eloquentMenuModel = $eloquentMenuModel;
-    }
 
     /**
      * @param Request $request
@@ -47,7 +31,7 @@ class MenuController extends ApiBaseController
      */
     public function store(Request $request)
     {
-
-        return $this->successUpdated();
+        $menu = Menu::create($request->input());
+        return $this->response()->item($menu, new MenuTransformer());
     }
 }

@@ -2,22 +2,19 @@
 
 namespace Modules\Menu\Repositories;
 
-
-use Modules\Menu\Repositories\Menu\MenuRepository;
-
 /**
  * Interface MenuExtender
  * @package Modules\Menu\Repositories
  */
-interface MenuExtender
+interface MenuItem
 {
     /**
      * @return mixed
      */
-    public function contentItems();
+    public function getNameForMenuItem();
 
     /**
      * @return mixed
      */
-    public function staticLinks();
+    public function getRouteForMenuItem();
 }

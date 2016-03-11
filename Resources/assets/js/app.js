@@ -63,7 +63,13 @@ var MenuVueApp = new Vue({
     el: '#societyAdmin',
     data: {
         menu: null,
-        selectedNode: null
+        selectedNode: {
+            id: null,
+            name: null,
+            url: null,
+            active:null
+        },
+        newRoot: ""
     },
     ready() {
         this.reloadTree();
@@ -85,7 +91,12 @@ var MenuVueApp = new Vue({
 
         selectNode(node) {
             if(node == null) {
-                return this.selectedNode = null;
+                return this.selectedNode = {
+                    id: null,
+                        name: null,
+                        url: null,
+                        active:null
+                };
             }
 
             var resource = this.$resource(societycms.api.menu.node.show);
@@ -104,16 +115,36 @@ var MenuVueApp = new Vue({
         },
 
         updateNode: function () {
-
             var resource = this.$resource(societycms.api.menu.node.update);
             resource.update({node:this.selectedNode.id}, this.selectedNode,function (response) {
                 this.reloadTree();
             }.bind(this));
+        },
 
+        createRoot: function () {
+            var resource = this.$resource(societycms.api.menu.menu.store);
+            resource.save({name: this.newRoot},function (response) {
+                this.reloadTree();
+            }.bind(this));
+            this.newRoot = "";
+        },
+
+        createLink: function () {
+            var resource = this.$resource(societycms.api.menu.node.store);
+            resource.save({},function (response) {
+                this.selectedNode = response.data;
+                this.reloadTree();
+            }.bind(this));
         }
     }
 });
 
+
+$('#createLinkModal')
+    .modal('attach events', '#createLink', 'show');
+
+$('#createMenuModal')
+    .modal('attach events', '#createMenu', 'show');
 
 setTimeout(function() {
     $('.ui.accordion').accordion().first().accordion({

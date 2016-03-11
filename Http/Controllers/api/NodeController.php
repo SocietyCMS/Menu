@@ -8,26 +8,10 @@ use Modules\Menu\Entities\Menu;
 use Modules\Menu\Repositories\Eloquent\EloquentMenuRepository;
 use Modules\Menu\Repositories\MenuBuilder;
 use Modules\Menu\Transformers\MenuTransformer;
+use Modules\Menu\Transformers\NodeTransformer;
 
 class NodeController extends ApiBaseController
 {
-    /**
-     * @var MenuRepository
-     */
-    protected $menu;
-
-    /**
-     * @var EloquentMenuRepository
-     */
-    protected $eloquentMenuModel;
-
-    public function __construct(MenuBuilder $menu, EloquentMenuRepository $eloquentMenuModel)
-    {
-        parent::__construct();
-        $this->menu = $menu;
-        $this->eloquentMenuModel = $eloquentMenuModel;
-    }
-    
 
     /**
      * @param Request $request
@@ -36,8 +20,13 @@ class NodeController extends ApiBaseController
      */
     public function store(Request $request)
     {
+        $menuParentItem = Menu::whereIsRoot()->first();
+        $menu = $menuParentItem->children()->create([
+            'name' => trans('menu::menu.node.new item'),
+            'active' => true
+        ]);
 
-        return $this->successUpdated();
+        return $this->response()->item($menu, new NodeTransformer());
     }
 
     /**
@@ -48,7 +37,7 @@ class NodeController extends ApiBaseController
     public function show(Request $request, $id)
     {
         $menuItem = Menu::where('id', $id)->first();
-        return $this->response()->item($menuItem, new MenuTransformer());
+        return $this->response()->item($menuItem, new NodeTransformer());
     }
 
     /**
@@ -63,7 +52,7 @@ class NodeController extends ApiBaseController
         $this->moveNode($request, $node);
         $node->update($request->input());
 
-        return $this->response()->item($node, new MenuTransformer());
+        return $this->response()->item($node, new NodeTransformer());
     }
 
     /**

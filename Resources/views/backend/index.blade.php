@@ -6,10 +6,15 @@
 
 @section('content')
 
-	<a class="ui primary button">
-		<i class="add user icon"></i>
+	<div class="ui primary button" id="createLink" v-on:click="createLink">
+		<i class="linkify icon"></i>
+		New Link
+	</div>
+
+	<div class="ui blue basic button" id="createMenu">
+		<i class="sidebar icon"></i>
 		New Menu
-	</a>
+	</div>
 
 	<div class="ui hidden divider"></div>
 
@@ -17,10 +22,10 @@
 		<div class="ten wide column">
 			<div id="tree1"></div>
 		</div>
-		<div class="six wide column" v-show="selectedNode">
+		<div class="six wide column" v-show="selectedNode.id">
 			<div class="ui segment">
 				<div class="ui huge fluid input">
-					<input type="text" v-model="selectedNode.name"  @keyup="updateNode | debounce 500">
+					<input type="text" v-model="selectedNode.name"  @blur="updateNode">
 				</div>
 
 				<div class="ui hidden divider"></div>
@@ -38,44 +43,19 @@
 							<div class="default text">Select Content</div>
 							<div class="menu">
 
-								<div class="header">
-									<i class="tags icon"></i>
-									Pages
-								</div>
+								@foreach($extenders as $module => $collection)
+									<div class="header">
+										<i class="tags icon"></i>
+										{{ trans("{$module}::{$module}.title.{$module}") }}
+									</div>
 
-								<div class="item" data-value="jenny">
-									Jenny Hess
-								</div>
-								<div class="item" data-value="elliot">
-									Elliot Fu
-								</div>
-								<div class="item" data-value="stevie">
-									Stevie Feliciano
-								</div>
-								<div class="item" data-value="christian">
-									Christian
-								</div>
-								<div class="item" data-value="matt">
-									Matt
-								</div>
-								<div class="item" data-value="justen">
-									Justen Kitsune
-								</div>
+									@foreach($collection as $item)
+										<div class="item" data-model="jenny">
+											{{$item->getNameForMenuItem()}}
+										</div>
+									@endforeach
+								@endforeach
 
-								<div class="header">
-									<i class="tags icon"></i>
-									Gallery
-								</div>
-
-								<div class="item" data-value="jenny2">
-									Jenny Hess
-								</div>
-								<div class="item" data-value="elliot2">
-									Elliot Fu
-								</div>
-								<div class="item" data-value="stevie2">
-									Stevie Feliciano
-								</div>
 							</div>
 						</div>
 
@@ -89,7 +69,7 @@
 						<div class="ui form">
 							<div class="field">
 								<label>URL</label>
-								<input type="text" name="url" placeholder="URL" v-model="selectedNode.url"  @keyup="updateNode | debounce 500">
+								<input type="text" name="url" placeholder="URL" v-model="selectedNode.url"  @blur="updateNode">
 							</div>
 						</div>
 					</div>
@@ -107,7 +87,30 @@
 	</div>
 
 
+	<div class="ui modal" id="createMenuModal">
+		<i class="close icon"></i>
 
+		<div class="header">
+			{{trans('menu::menu.modal.create menu')}}
+		</div>
+		<div class="content">
+			<div class="ui form">
+				<div class="field">
+					<label>{{trans('menu::menu.form.menu name')}}</label>
+					<input type="text" name="name" v-model="newRoot">
+				</div>
+			</div>
+		</div>
+		<div class="actions">
+			<div class="ui black deny button">
+				{{ trans('core::elements.button.cancel') }}
+			</div>
+			<div class="ui positive right labeled icon button" v-on:click="createRoot">
+				{{ trans('core::elements.button.create') }}
+				<i class="checkmark icon"></i>
+			</div>
+		</div>
+	</div>
 @endsection
 
 @section('javascript')

@@ -6,7 +6,7 @@ use League\Fractal;
 use Modules\Gallery\Entities\Album;
 use Modules\Menu\Entities\Menu;
 
-class MenuTransformer extends Fractal\TransformerAbstract
+class NodeTransformer extends Fractal\TransformerAbstract
 {
     public function transform(Menu $menu)
     {
@@ -14,16 +14,22 @@ class MenuTransformer extends Fractal\TransformerAbstract
             'id'     => $menu->id,
             'name'   => $menu->name,
 
+            'url' => $menu->url,
+
+            'target' => $menu->target,
+            'active' => (bool) $menu->active,
+
+            'useSubject' => (bool) $menu->useSubject,
+
+            'parent' => $menu->parent_id,
             'children' => $this->transformChildren($menu),
         ];
     }
 
     private function transformChildren(Menu $menu)
     {
-        $transformer = new NodeTransformer();
-
-        return $menu->children->map(function ($item, $key) use ($transformer) {
-            return $transformer->transform($item);
+        return $menu->children->map(function ($item, $key) {
+            return $this->transform($item);
         });
     }
 }
