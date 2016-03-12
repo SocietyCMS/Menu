@@ -113,6 +113,6 @@ class MenuBuilder
      */
     private function buildStaticItem($menu, $item)
     {
-        return $menu->url($item->url, $item->name, ['target' => $item->target]);
+        return $menu->url($item->url, $item->name);
     }
 }
