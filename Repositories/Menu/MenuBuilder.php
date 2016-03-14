@@ -88,7 +88,7 @@ class MenuBuilder
         $menuItems = $item->children()->defaultOrder()->where('active', true)->get();
 
         foreach ($menuItems as $item) {
-            if ($item->useSubject && !empty($item->subject_type)) {
+            if ($item->useSubject) {
                 $this->buildSubjectItem($menu, $item);
             } else {
                 $this->buildStaticItem($menu, $item);
@@ -103,7 +103,10 @@ class MenuBuilder
      */
     private function buildSubjectItem($menu, $item)
     {
-        return $menu->url($item->subject->getRouteForMenuItem(), $item->name);
+        if(!empty($item->subject_type) && !is_null($item->subject)) {
+            return $menu->url($item->subject->getRouteForMenuItem(), $item->name);
+        }
+        return false;
     }
 
     /**
