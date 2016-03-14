@@ -88,7 +88,7 @@ class MenuBuilder
         $menuItems = $item->children()->defaultOrder()->where('active', true)->get();
 
         foreach ($menuItems as $item) {
-            if ($item->useSubject) {
+            if ($item->useSubject && !empty($item->subject_type)) {
                 $this->buildSubjectItem($menu, $item);
             } else {
                 $this->buildStaticItem($menu, $item);
