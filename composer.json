@@ -18,6 +18,6 @@
   },
   "require": {
     "kalnoy/nestedset": "^3",
-    "lavary/laravel-menu": "dev-master"
+    "lavary/laravel-menu": "^1.6"
   }
 }
