@@ -5,7 +5,7 @@ namespace Modules\Menu\Repositories\Menu;
 use Illuminate\Container\Container;
 use Illuminate\Support\Str;
 use Modules\Menu\Entities\Menu;
-use Pingpong\Menus\MenuFacade as PingpongMenu;
+use Lavary\Menu\Facade as LavaryMenu;
 use Pingpong\Modules\Contracts\RepositoryInterface;
 
 /**
@@ -72,7 +72,7 @@ class MenuBuilder
     {
         $menu = Menu::whereIsRoot()->get();
         foreach ($menu as $item) {
-            PingpongMenu::create(Str::slug($item->name), function ($menu) use ($item) {
+            LavaryMenu::make(Str::slug($item->name), function ($menu) use ($item) {
                 $this->buildMenuItems($menu, $item);
             });
         }
@@ -104,7 +104,7 @@ class MenuBuilder
     private function buildSubjectItem($menu, $item)
     {
         if(!empty($item->subject_type) && !is_null($item->subject)) {
-            return $menu->url($item->subject->getRouteForMenuItem(), $item->name);
+            return $menu->add($item->name, ['url' =>$item->subject->getRouteForMenuItem()]);
         }
         return false;
     }
@@ -116,6 +116,6 @@ class MenuBuilder
      */
     private function buildStaticItem($menu, $item)
     {
-        return $menu->url($item->url, $item->name);
+        return $menu->add($item->name, ['url' =>$item->url]);
     }
 }
