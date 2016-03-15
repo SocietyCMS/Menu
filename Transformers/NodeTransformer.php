@@ -16,7 +16,10 @@ class NodeTransformer extends Fractal\TransformerAbstract
 
             'url' => $menu->url,
 
-            'target' => $menu->target,
+            'attribute_target' => $menu->attribute_target,
+            'attribute_id' => $menu->attribute_id,
+            'attribute_class' => $menu->attribute_class,
+
             'active' => (bool) $menu->active,
 
             'subject' => $this->transformSubject($menu),

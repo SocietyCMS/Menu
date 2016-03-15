@@ -37,7 +37,7 @@
 					</div>
 					<div class="content" data-useSubject="true">
 
-						<div class="ui fluid search selection dropdown">
+						<div class="ui fluid search selection dropdown item-subject">
 							<input type="hidden" name="subject">
 							<i class="dropdown icon"></i>
 							<div class="default text">Select Content</div>
@@ -49,8 +49,8 @@
 										{{ trans("{$module}::{$module}.title.{$module}") }}
 									</div>
 
-									@foreach($collection as $item)
-										<div class="item" data-value="{{$item['subject']}}">
+									@foreach($collection['content'] as $item)
+										<div class="item" data-value='{{$item['subject']}}'>
 											{{$item['name']}}
 										</div>
 									@endforeach
@@ -69,7 +69,14 @@
 						<div class="ui form">
 							<div class="field">
 								<label>URL</label>
-								<input type="text" name="url" placeholder="URL" v-model="selectedNode.url"  @blur="updateNode">
+
+								<select name="url" class="ui fluid search dropdown item-url">
+									@foreach($extenders as $module => $collection)
+										@foreach($collection['static'] as $name => $url)
+											<option value="{{$url}}">{{$name}}</option>
+										@endforeach
+									@endforeach
+								</select>
 							</div>
 						</div>
 					</div>

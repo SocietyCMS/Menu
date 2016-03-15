@@ -22,11 +22,14 @@ class MenuTableSeeder extends Seeder
 
         $main = Menu::create(['name' => 'Main']);
 
-        $main->children()->create(['name' => 'Blog']);
-        $main->children()->create(['name' => 'Gallery']);
-        $main->children()->create(['name' => 'Pages']);
-        $main->children()->create(['name' => 'Recent']);
-
+        $main->children()->create([
+            'name' => 'SocietyCMS',
+            'url' => '',
+            'active' => true,
+            'attribute_class' => 'nav-header'
+        ]);
+        $main->children()->create(['name' => 'Blog', 'url' => 'blog', 'active' => true]);
+        $main->children()->create(['name' => 'Gallery', 'url' => 'gallery', 'active' => true]);
 
         $social = Menu::create(['name' => 'Social']);
 

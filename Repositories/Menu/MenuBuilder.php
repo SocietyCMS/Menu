@@ -50,14 +50,16 @@ class MenuBuilder
      */
     public function getItemProviders()
     {
-
         foreach ($this->modules->enabled() as $module) {
             $name = studly_case($module->getName());
             $class = 'Modules\\' . $name . '\\MenuExtenders\\MenuExtender';
 
             if (class_exists($class)) {
                 $extender = $this->container->make($class);
-                $this->extenders->put($module->getName(), $extender->getItems());
+                $this->extenders->put($module->getName(), [
+                    'content' => $extender->getContentItems(),
+                    'static' => $extender->getStaticItems()
+                ]);
             }
         }
 
@@ -89,10 +91,11 @@ class MenuBuilder
 
         foreach ($menuItems as $item) {
             if ($item->useSubject) {
-                $this->buildSubjectItem($menu, $item);
+                $menuItem = $this->buildSubjectItem($menu, $item);
             } else {
-                $this->buildStaticItem($menu, $item);
+                $menuItem = $this->buildStaticItem($menu, $item);
             }
+            $this->addMenuItemProperties($menuItem, $item);
         }
     }
 
@@ -117,5 +120,23 @@ class MenuBuilder
     private function buildStaticItem($menu, $item)
     {
         return $menu->add($item->name, ['url' =>$item->url]);
+    }
+
+    /**
+     * @param $menuItem
+     * @param $item
+     */
+    private function addMenuItemProperties($menuItem, $item)
+    {
+        if($item->attribute_target) {
+            $menuItem->link->attr('target', $item->attribute_target);
+        }
+        if($item->attribute_id_attribute) {
+            $menuItem->attr('id', $item->attribute_id);
+        }
+        if($item->attribute_class) {
+            $menuItem->attr('class', $item->attribute_class);
+        }
+        return $menuItem;
     }
 }

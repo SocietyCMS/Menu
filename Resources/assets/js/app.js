@@ -105,11 +105,13 @@ var MenuVueApp = new Vue({
                 this.selectedNode = response.data;
 
                 if(this.selectedNode.useSubject) {
-                    $('.ui.dropdown').dropdown('set selected', this.selectedNode.subject);
+                    $('.ui.dropdown.item-subject').dropdown('set selected', this.selectedNode.subject);
+                    $('.ui.dropdown.item-url').dropdown('clear');
                     $('.ui.accordion').accordion('open', 0);
                     $('.ui.accordion').accordion('close others');
                 } else {
-                    $('.ui.dropdown').dropdown('clear');
+                    $('.ui.dropdown.item-subject').dropdown('clear');
+                    $('.ui.dropdown.item-url').dropdown('set selected', this.selectedNode.url);
                     $('.ui.accordion').accordion('open', 1);
                     $('.ui.accordion').accordion('close others');
                 }
@@ -156,11 +158,20 @@ setTimeout(function() {
         }
     });
 
-    $('.ui.dropdown')
+    $('.ui.dropdown.item-subject')
         .dropdown({
             onChange: function(value, text, $selectedItem) {
                 MenuVueApp.selectedNode.subject = value;
                 MenuVueApp.updateNode();
             }
         });
+    $('.ui.dropdown.item-url')
+        .dropdown({
+            onChange: function(value, text, $selectedItem) {
+                MenuVueApp.selectedNode.url = value;
+                MenuVueApp.updateNode();
+            },
+            allowAdditions: true
+        })
+    ;
 }, 200);

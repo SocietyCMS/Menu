@@ -18,8 +18,10 @@ class CreateMenusTable extends Migration
 
             $table->string('name');
             $table->string('url');
-            $table->string('target');
-            
+
+            $table->string('attribute_target');
+            $table->string('attribute_id');
+            $table->string('attribute_class');
 
             $table->boolean('active');
             $table->boolean('useSubject');
