@@ -165,11 +165,14 @@
 	                    $('.ui.dropdown.item-url').dropdown('clear');
 	                    $('.ui.accordion').accordion('open', 0);
 	                    $('.ui.accordion').accordion('close others');
-	                } else {
+	                } else if (this.selectedNode.url) {
 	                    $('.ui.dropdown.item-subject').dropdown('clear');
 	                    $('.ui.dropdown.item-url').dropdown('set selected', this.selectedNode.url);
 	                    $('.ui.accordion').accordion('open', 1);
 	                    $('.ui.accordion').accordion('close others');
+	                } else {
+	                    $('.ui.dropdown.item-subject').dropdown('clear');
+	                    $('.ui.dropdown.item-url').dropdown('clear');
 	                }
 	            }.bind(this));
 	        },
