@@ -2,27 +2,31 @@
 
 namespace Modules\Menu\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\Node;
 
-class Menu extends Model
+class Menu extends Node
 {
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'menu_menu';
+    protected $table = 'menu__menus';
+
     /**
      * The fillable properties of the model.
      *
      * @var array
      */
-    protected $fillable = ['id', 'uuid', 'order', 'title', 'show'];
+    protected $fillable = ['name', 'url', 'target', 'active',  'useSubject', 'lft', 'rgt', 'depth'];
+
+    /**
+     * Get all of the staff member's photos.
+     */
+    public function subject()
+    {
+        return $this->morphTo();
+    }
+
 }

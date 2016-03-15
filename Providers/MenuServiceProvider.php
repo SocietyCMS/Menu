@@ -2,15 +2,17 @@
 
 namespace Modules\Menu\Providers;
 
+use App;
 use Cache;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
-use Modules\Menu\Repositories\Menu\MenuRepository;
-use Modules\Menu\Repositories\MenuBuilder;
+use Modules\Menu\Repositories\Menu\MenuBuilder;
 use Pingpong\Modules\Contracts\RepositoryInterface;
 
 /**
  * Class MenuServiceProvider.
+ * @property RepositoryInterface modules
+ * @property Container container
  */
 class MenuServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,8 @@ class MenuServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      *
-     * @return void
+     * @param RepositoryInterface $modules
+     * @param Container $container
      */
     public function boot(RepositoryInterface $modules, Container $container)
     {
@@ -35,7 +38,7 @@ class MenuServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerViews();
 
-        $this->app->booted(function () {
+        App::booted(function ($app) {
             $this->defineMenuBuilder();
         });
     }
@@ -103,33 +106,11 @@ class MenuServiceProvider extends ServiceProvider
      */
     private function defineMenuBuilder()
     {
-        $this->app->instance(
-            'Modules\Menu\Repositories\Menu\MenuRepository', $menuRepository = app(MenuRepository::class)
-        );
-
-        if (!$this->app['society.isInstalled'] || \App::runningInConsole()) {
+        if (! $this->app['society.isInstalled'] || App::runningInConsole()) {
             return;
         }
 
-        $this->registerMenus($menuRepository);
-
-        return app(MenuBuilder::class)->build();
-    }
-
-    /**
-     * Register all Menus provided by Modules implementing a MenuExtender.
-     */
-    private function registerMenus(MenuRepository $menuRepository)
-    {
-        foreach ($this->modules->enabled() as $module) {
-            $name = studly_case($module->getName());
-            $class = 'Modules\\' . $name . '\\MenuExtenders\\MenuExtender';
-
-            if (class_exists($class)) {
-                $extender = $this->container->make($class);
-                $extender->extendWith($menuRepository);
-            }
-        }
+        return app(MenuBuilder::class)->buildMenus();
     }
 
     /**

@@ -17,6 +17,7 @@
     }
   },
   "require": {
-    "pingpong/menus": "^2.1"
+    "kalnoy/nestedset": "^3",
+    "lavary/laravel-menu": "dev-master"
   }
 }

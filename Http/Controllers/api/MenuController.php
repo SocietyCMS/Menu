@@ -4,26 +4,24 @@ namespace Modules\Menu\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\ApiBaseController;
+use Modules\Menu\Entities\Menu;
 use Modules\Menu\Repositories\Eloquent\EloquentMenuRepository;
 use Modules\Menu\Repositories\MenuBuilder;
+use Modules\Menu\Transformers\MenuTransformer;
 
 class MenuController extends ApiBaseController
 {
-    /**
-     * @var MenuRepository
-     */
-    protected $menu;
 
     /**
-     * @var EloquentMenuRepository
+     * @param Request $request
+     *
+     * @return mixed
      */
-    protected $eloquentMenuModel;
-
-    public function __construct(MenuBuilder $menu, EloquentMenuRepository $eloquentMenuModel)
+    public function index(Request $request)
     {
-        parent::__construct();
-        $this->menu              = $menu;
-        $this->eloquentMenuModel = $eloquentMenuModel;
+        $menu = Menu::defaultOrder()->get()->toTree();
+
+        return $this->response()->collection($menu, new MenuTransformer());
     }
 
     /**
@@ -33,13 +31,7 @@ class MenuController extends ApiBaseController
      */
     public function store(Request $request)
     {
-        foreach ($request->order as $order => $uuid) {
-            $this->eloquentMenuModel->createOrUpdate(
-                ['uuid' => $uuid],
-                ['order' => $order + 100]
-            );
-        }
-
-        return $this->successUpdated();
+        $menu = Menu::create($request->input());
+        return $this->response()->item($menu, new MenuTransformer());
     }
 }

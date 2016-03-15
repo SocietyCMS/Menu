@@ -10,11 +10,10 @@
   "providers": [
     "Modules\\Menu\\Providers\\MenuServiceProvider",
     "Modules\\Menu\\Providers\\RouteServiceProvider",
-    "Modules\\Menu\\Providers\\BackendMenuServiceProvider",
-    "Pingpong\\Menus\\MenusServiceProvider"
+    "Lavary\\Menu\\ServiceProvider"
   ],
   "aliases": {
-    "Menu": "Pingpong\\Menus\\MenuFacade"
+    "Menu": "Lavary\\Menu\\Facade"
   },
   "files": []
 }

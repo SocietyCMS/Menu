@@ -3,27 +3,31 @@
 namespace Modules\Menu\Http\Controllers\backend;
 
 use Modules\Core\Http\Controllers\AdminBaseController;
-use Modules\Menu\Entities\Menu;
-use Modules\Menu\Repositories\Menu\MenuRepository;
-use Modules\Menu\Repositories\MenuBuilder;
+use Modules\Menu\Repositories\Menu\MenuBuilder;
 
 class MenuController extends AdminBaseController
 {
     /**
-     * @var MenuRepository
+     * @var MenuBuilder
      */
-    protected $menu;
+    private $menuBuilder;
 
-    public function __construct(MenuBuilder $menu)
+    /**
+     * MenuController constructor.
+     * @param MenuBuilder $menuBuilder
+     */
+    public function __construct(MenuBuilder $menuBuilder)
     {
-        parent::__construct();
-        $this->menu = $menu;
+        $this->menuBuilder = $menuBuilder;
     }
 
+
+    /**
+     * @return mixed
+     */
     public function index()
     {
-        $menus = $this->menu->getStructuredMenu();
-
-        return view('menu::backend.index', compact('menus'));
+        $extenders = $this->menuBuilder->getItemProviders();
+        return view('menu::backend.index', compact('extenders'));
     }
 }
