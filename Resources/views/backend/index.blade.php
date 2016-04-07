@@ -23,9 +23,9 @@
 			<div id="tree1"></div>
 		</div>
 		<div class="six wide column" v-show="selectedNode.id">
-			<div class="ui segment">
+			<div class="ui attached segment">
 				<div class="ui huge fluid input">
-					<input type="text" v-model="selectedNode.name"  @blur="updateNode">
+					<input type="text" v-model="selectedNode.name">
 				</div>
 
 				<div class="ui hidden divider"></div>
@@ -85,11 +85,40 @@
 				<div class="ui hidden divider"></div>
 
 				<div class="ui toggle checkbox">
-					<input type="checkbox" name="active" v-model="selectedNode.active" @change="updateNode">
+					<input type="checkbox" name="active" v-model="selectedNode.active">
 					<label>Show this Link</label>
 				</div>
 
+                <div class="ui hidden divider"></div>
+
+                <div class="ui accordion field">
+                    <div class="title">
+                        <i class="icon dropdown"></i>
+                        Optional Details
+                    </div>
+                    <div class="content field ui form">
+                        <div class="field">
+                            <label>Id Attribute</label>
+                            <input type="text" v-model="selectedNode.attribute_id">
+                        </div>
+                        <div class="field">
+                            <label>Class Attribute</label>
+                            <input type="text" v-model="selectedNode.attribute_class">
+                        </div>
+                        <div class="field">
+                            <label>Target Attribute</label>
+                            <input type="text" v-model="selectedNode.attribute_target">
+                        </div>
+                    </div>
+                </div>
+
 			</div>
+			<div class="ui bottom attached segment">
+				<a class="ui primary button" @click="updateNode">
+					Save
+				</a>
+			</div>
+
 		</div>
 	</div>
 

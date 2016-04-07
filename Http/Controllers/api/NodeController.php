@@ -61,20 +61,20 @@ class NodeController extends ApiBaseController
      */
     protected function moveNode(Request $request, $node)
     {
-        if(!$request->target) {
+        if(!$request->target_node) {
             return;
         }
 
-        $target = Menu::where('id', $request->target)->first();
+        $target_node = Menu::where('id', $request->target_node)->first();
 
         if ($request->position == 'after') {
-            $node->afterNode($target)->save();
+            $node->afterNode($target_node)->save();
         }
 
         if ($request->position == 'inside') {
-            $before = $target->getDescendants()->first();
+            $before = $target_node->getDescendants()->first();
 
-            $node->appendTo($target);
+            $node->appendTo($target_node);
 
             if (! is_null($before)) {
                 $node->beforeNode($before);

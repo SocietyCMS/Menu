@@ -101,7 +101,7 @@
 
 	    var data = {
 	        node: event.move_info.moved_node.id,
-	        target: event.move_info.target_node.id,
+	        target_node: event.move_info.target_node.id,
 	        position: event.move_info.position,
 	        previous_parent: event.move_info.previous_parent.id
 	    };
@@ -218,13 +218,11 @@
 	    $('.ui.dropdown.item-subject').dropdown({
 	        onChange: function onChange(value, text, $selectedItem) {
 	            MenuVueApp.selectedNode.subject = value;
-	            MenuVueApp.updateNode();
 	        }
 	    });
 	    $('.ui.dropdown.item-url').dropdown({
 	        onChange: function onChange(value, text, $selectedItem) {
 	            MenuVueApp.selectedNode.url = value;
-	            MenuVueApp.updateNode();
 	        },
 	        allowAdditions: true
 	    });
@@ -543,7 +541,6 @@
 	function applyToTag(styleElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
-		var sourceMap = obj.sourceMap;
 
 		if(media) {
 			styleElement.setAttribute("media", media)
@@ -561,7 +558,6 @@
 
 	function updateLink(linkElement, obj) {
 		var css = obj.css;
-		var media = obj.media;
 		var sourceMap = obj.sourceMap;
 
 		if(sourceMap) {

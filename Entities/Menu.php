@@ -19,7 +19,7 @@ class Menu extends Node
      *
      * @var array
      */
-    protected $fillable = ['name', 'url', 'target', 'active',  'useSubject', 'lft', 'rgt', 'depth'];
+    protected $fillable = ['name', 'url', 'attribute_target', 'attribute_id', 'attribute_class', 'active', 'useSubject', 'lft', 'rgt', 'depth'];
 
     /**
      * Get all of the staff member's photos.

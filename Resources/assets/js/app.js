@@ -42,7 +42,7 @@ $tree.bind(
 
         var data = {
             node:   event.move_info.moved_node.id,
-            target: event.move_info.target_node.id,
+            target_node: event.move_info.target_node.id,
             position: event.move_info.position,
             previous_parent:event.move_info.previous_parent.id
         };
@@ -165,14 +165,12 @@ setTimeout(function() {
         .dropdown({
             onChange: function(value, text, $selectedItem) {
                 MenuVueApp.selectedNode.subject = value;
-                MenuVueApp.updateNode();
             }
         });
     $('.ui.dropdown.item-url')
         .dropdown({
             onChange: function(value, text, $selectedItem) {
                 MenuVueApp.selectedNode.url = value;
-                MenuVueApp.updateNode();
             },
             allowAdditions: true
         })
