@@ -17,17 +17,17 @@ class CreateMenusTable extends Migration
             $table->increments('id');
 
             $table->string('name');
-            $table->string('url');
+            $table->string('url')->nullable();
 
-            $table->string('attribute_target');
-            $table->string('attribute_id');
-            $table->string('attribute_class');
+            $table->string('attribute_target')->nullable();
+            $table->string('attribute_id')->nullable();
+            $table->string('attribute_class')->nullable();
 
-            $table->boolean('active');
-            $table->boolean('useSubject');
+            $table->boolean('active')->default(false);
+            $table->boolean('useSubject')->default(false);
 
-            $table->integer('subject_id')->index();
-            $table->string('subject_type')->index();
+            $table->integer('subject_id')->nullable()->index();
+            $table->string('subject_type')->nullable()->index();
 
             NestedSet::columns($table);
             $table->timestamps();
