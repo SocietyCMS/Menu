@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use DB;
 use Modules\Menu\Entities\Menu;
 
-class MenuTableSeeder extends Seeder
+class DemoTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -28,8 +28,6 @@ class MenuTableSeeder extends Seeder
             'active' => true,
             'attribute_class' => 'nav-header'
         ]);
-        $main->children()->create(['name' => 'Blog', 'url' => 'blog', 'active' => true]);
-        $main->children()->create(['name' => 'Gallery', 'url' => 'gallery', 'active' => true]);
 
         // Auth
         $auth = Menu::create(['name' => 'Auth']);
