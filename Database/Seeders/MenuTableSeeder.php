@@ -28,9 +28,7 @@ class MenuTableSeeder extends Seeder
             'active' => true,
             'attribute_class' => 'nav-header'
         ]);
-        $main->children()->create(['name' => 'Blog', 'url' => 'blog', 'active' => true]);
-        $main->children()->create(['name' => 'Gallery', 'url' => 'gallery', 'active' => true]);
-
+        
         // Auth
         $auth = Menu::create(['name' => 'Auth']);
         $auth->children()->create(['name' => 'Login', 'url' => 'auth/login', 'active' => true]);
