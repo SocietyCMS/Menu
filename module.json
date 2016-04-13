@@ -1,7 +1,7 @@
 {
   "name": "Menu",
   "alias": "menu",
-  "description": "Managing menus.",
+  "description": "This Module provides an easy interface for creating and managing menus.",
   "keywords": [
   ],
   "version": "0.0.1",
