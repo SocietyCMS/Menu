@@ -2,9 +2,9 @@
 
 namespace Modules\Menu\Database\Seeders;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use DB;
 use Modules\Menu\Entities\Menu;
 
 class MenuTableSeeder extends Seeder
@@ -19,20 +19,18 @@ class MenuTableSeeder extends Seeder
         Model::unguard();
 
         DB::table('menu__menus')->delete();
-        
+
         // Main
         $main = Menu::create(['name' => 'Main']);
         $main->children()->create([
-            'name' => 'SocietyCMS',
-            'url' => '',
-            'active' => true,
-            'attribute_class' => 'nav-header'
+            'name'            => 'SocietyCMS',
+            'url'             => '',
+            'active'          => true,
+            'attribute_class' => 'nav-header',
         ]);
-        
+
         // Auth
         $auth = Menu::create(['name' => 'Auth']);
         $auth->children()->create(['name' => 'Login', 'url' => 'auth/login', 'active' => true]);
-
-
     }
 }

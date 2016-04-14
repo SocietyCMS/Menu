@@ -5,13 +5,10 @@ namespace Modules\Menu\Http\Controllers\api;
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\ApiBaseController;
 use Modules\Menu\Entities\Menu;
-use Modules\Menu\Repositories\Eloquent\EloquentMenuRepository;
-use Modules\Menu\Repositories\MenuBuilder;
 use Modules\Menu\Transformers\MenuTransformer;
 
 class MenuController extends ApiBaseController
 {
-
     /**
      * @param Request $request
      *
@@ -32,6 +29,7 @@ class MenuController extends ApiBaseController
     public function store(Request $request)
     {
         $menu = Menu::create($request->input());
+
         return $this->response()->item($menu, new MenuTransformer());
     }
 }

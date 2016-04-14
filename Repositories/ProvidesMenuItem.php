@@ -3,13 +3,13 @@
 namespace Modules\Menu\Repositories;
 
 /**
- * Interface MenuExtender
- * @package Modules\Menu\Repositories
+ * Interface MenuExtender.
  */
 trait ProvidesMenuItem
 {
     /**
      * Returns the name for a menu item.
+     *
      * @return mixed
      */
     public function getNameForMenuItem()
@@ -18,7 +18,8 @@ trait ProvidesMenuItem
     }
 
     /**
-     * Returns the route for a menu item
+     * Returns the route for a menu item.
+     *
      * @return mixed
      */
     abstract public function getRouteForMenuItem();

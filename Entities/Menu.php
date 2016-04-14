@@ -6,7 +6,6 @@ use Kalnoy\Nestedset\Node;
 
 class Menu extends Node
 {
-
     /**
      * The table associated with the model.
      *
@@ -28,5 +27,4 @@ class Menu extends Node
     {
         return $this->morphTo();
     }
-
 }

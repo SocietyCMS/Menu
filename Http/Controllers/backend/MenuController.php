@@ -14,6 +14,7 @@ class MenuController extends AdminBaseController
 
     /**
      * MenuController constructor.
+     *
      * @param MenuBuilder $menuBuilder
      */
     public function __construct(MenuBuilder $menuBuilder)
@@ -21,13 +22,13 @@ class MenuController extends AdminBaseController
         $this->menuBuilder = $menuBuilder;
     }
 
-
     /**
      * @return mixed
      */
     public function index()
     {
         $extenders = $this->menuBuilder->getItemProviders();
+
         return view('menu::backend.index', compact('extenders'));
     }
 }

@@ -4,8 +4,8 @@ namespace Modules\Menu\Repositories\Menu;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Str;
-use Modules\Menu\Entities\Menu;
 use Lavary\Menu\Facade as LavaryMenu;
+use Modules\Menu\Entities\Menu;
 use Pingpong\Modules\Contracts\RepositoryInterface;
 
 /**
@@ -22,7 +22,6 @@ class MenuBuilder
      */
     private $container;
 
-
     /**
      * @var \Illuminate\Support\Collection
      */
@@ -30,8 +29,10 @@ class MenuBuilder
 
     /**
      * MenuBuilder constructor.
+     *
      * @param RepositoryInterface $modules
-     * @param Container $container
+     * @param Container           $container
+     *
      * @internal param RepositoryInterface $menus
      */
     public function __construct(RepositoryInterface $modules, Container $container)
@@ -42,7 +43,6 @@ class MenuBuilder
         $this->extenders = collect();
     }
 
-
     /**
      * Build the menu structure.
      *
@@ -52,23 +52,22 @@ class MenuBuilder
     {
         foreach ($this->modules->enabled() as $module) {
             $name = studly_case($module->getName());
-            $class = 'Modules\\' . $name . '\\MenuExtenders\\MenuExtender';
+            $class = 'Modules\\'.$name.'\\MenuExtenders\\MenuExtender';
 
             if (class_exists($class)) {
                 $extender = $this->container->make($class);
                 $this->extenders->put($module->getName(), [
                     'content' => $extender->getContentItems(),
-                    'static' => $extender->getStaticItems()
+                    'static'  => $extender->getStaticItems(),
                 ]);
             }
         }
 
         return $this->extenders;
-
     }
 
     /**
-     * Build all Menus
+     * Build all Menus.
      */
     public function buildMenus()
     {
@@ -78,7 +77,6 @@ class MenuBuilder
                 $this->buildMenuItems($menu, $item);
             });
         }
-
     }
 
     /**
@@ -102,24 +100,27 @@ class MenuBuilder
     /**
      * @param $menu
      * @param $item
+     *
      * @return mixed
      */
     private function buildSubjectItem($menu, $item)
     {
-        if(!empty($item->subject_type) && !is_null($item->subject)) {
-            return $menu->add($item->name, ['url' =>$item->subject->getRouteForMenuItem()]);
+        if (!empty($item->subject_type) && !is_null($item->subject)) {
+            return $menu->add($item->name, ['url' => $item->subject->getRouteForMenuItem()]);
         }
+
         return false;
     }
 
     /**
      * @param $menu
      * @param $item
+     *
      * @return mixed
      */
     private function buildStaticItem($menu, $item)
     {
-        return $menu->add($item->name, ['url' =>$item->url]);
+        return $menu->add($item->name, ['url' => $item->url]);
     }
 
     /**
@@ -128,15 +129,16 @@ class MenuBuilder
      */
     private function addMenuItemProperties($menuItem, $item)
     {
-        if($item->attribute_target) {
+        if ($item->attribute_target) {
             $menuItem->link->attr('target', $item->attribute_target);
         }
-        if($item->attribute_id_attribute) {
+        if ($item->attribute_id_attribute) {
             $menuItem->attr('id', $item->attribute_id);
         }
-        if($item->attribute_class) {
+        if ($item->attribute_class) {
             $menuItem->attr('class', $item->attribute_class);
         }
+
         return $menuItem;
     }
 }

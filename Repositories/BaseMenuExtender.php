@@ -3,8 +3,7 @@
 namespace Modules\Menu\Repositories;
 
 /**
- * Interface MenuExtender
- * @package Modules\Menu\Repositories
+ * Interface MenuExtender.
  */
 abstract class BaseMenuExtender
 {
@@ -12,6 +11,7 @@ abstract class BaseMenuExtender
      * @return mixed
      */
     abstract public function contentItems();
+
     /**
      * @return mixed
      */
@@ -21,11 +21,11 @@ abstract class BaseMenuExtender
     {
         $collection = $this->contentItems()->map(function ($item, $key) {
             return [
-                'name' => $item->getNameForMenuItem(),
-                'subject_id' => $item->{$item->getKeyName()},
+                'name'         => $item->getNameForMenuItem(),
+                'subject_id'   => $item->{$item->getKeyName()},
                 'subject_type' => get_class($item),
-                'subject' => serialize([ 'subject_id' => $item->{$item->getKeyName()},
-                                         'subject_type' => get_class($item)])
+                'subject'      => serialize(['subject_id' => $item->{$item->getKeyName()},
+                                         'subject_type'   => get_class($item), ]),
             ];
         });
 
@@ -34,6 +34,6 @@ abstract class BaseMenuExtender
 
     public function getStaticItems()
     {
-        return $this->staticLinks()?:collect();
+        return $this->staticLinks() ?: collect();
     }
 }

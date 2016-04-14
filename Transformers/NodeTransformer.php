@@ -3,7 +3,6 @@
 namespace Modules\Menu\Transformers;
 
 use League\Fractal;
-use Modules\Gallery\Entities\Album;
 use Modules\Menu\Entities\Menu;
 
 class NodeTransformer extends Fractal\TransformerAbstract
@@ -17,15 +16,15 @@ class NodeTransformer extends Fractal\TransformerAbstract
             'url' => $menu->url,
 
             'attribute_target' => $menu->attribute_target,
-            'attribute_id' => $menu->attribute_id,
-            'attribute_class' => $menu->attribute_class,
+            'attribute_id'     => $menu->attribute_id,
+            'attribute_class'  => $menu->attribute_class,
 
             'active' => (bool) $menu->active,
 
-            'subject' => $this->transformSubject($menu),
+            'subject'    => $this->transformSubject($menu),
             'useSubject' => (bool) $menu->useSubject,
 
-            'parent' => $menu->parent_id,
+            'parent'   => $menu->parent_id,
             'children' => $this->transformChildren($menu),
         ];
     }
@@ -37,11 +36,11 @@ class NodeTransformer extends Fractal\TransformerAbstract
         });
     }
 
-    private function transformSubject(Menu $menu) {
+    private function transformSubject(Menu $menu)
+    {
         return serialize([
-            'subject_id' => $menu->subject_id,
-            'subject_type' => $menu->subject_type
+            'subject_id'   => $menu->subject_id,
+            'subject_type' => $menu->subject_type,
         ]);
     }
-
 }

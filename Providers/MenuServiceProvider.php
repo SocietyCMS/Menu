@@ -3,7 +3,6 @@
 namespace Modules\Menu\Providers;
 
 use App;
-use Cache;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Modules\Menu\Repositories\Menu\MenuBuilder;
@@ -11,6 +10,7 @@ use Pingpong\Modules\Contracts\RepositoryInterface;
 
 /**
  * Class MenuServiceProvider.
+ *
  * @property RepositoryInterface modules
  * @property Container container
  */
@@ -27,7 +27,7 @@ class MenuServiceProvider extends ServiceProvider
      * Boot the application events.
      *
      * @param RepositoryInterface $modules
-     * @param Container $container
+     * @param Container           $container
      */
     public function boot(RepositoryInterface $modules, Container $container)
     {
@@ -60,10 +60,10 @@ class MenuServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../Config/config.php' => config_path('menu.php'),
+            __DIR__.'/../Config/config.php' => config_path('menu.php'),
         ]);
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/config.php', 'menu'
+            __DIR__.'/../Config/config.php', 'menu'
         );
     }
 
@@ -76,7 +76,7 @@ class MenuServiceProvider extends ServiceProvider
     {
         $viewPath = base_path('resources/views/modules/menu');
 
-        $sourcePath = __DIR__ . '/../Resources/views';
+        $sourcePath = __DIR__.'/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath,
@@ -97,7 +97,7 @@ class MenuServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'menu');
         } else {
-            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'menu');
+            $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'menu');
         }
     }
 
@@ -106,7 +106,7 @@ class MenuServiceProvider extends ServiceProvider
      */
     private function defineMenuBuilder()
     {
-        if (! $this->app['society.isInstalled']) {
+        if (!$this->app['society.isInstalled']) {
             return;
         }
 
