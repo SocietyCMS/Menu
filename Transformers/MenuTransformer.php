@@ -3,7 +3,6 @@
 namespace Modules\Menu\Transformers;
 
 use League\Fractal;
-use Modules\Gallery\Entities\Album;
 use Modules\Menu\Entities\Menu;
 
 class MenuTransformer extends Fractal\TransformerAbstract

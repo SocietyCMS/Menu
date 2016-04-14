@@ -4,7 +4,6 @@ namespace Modules\Menu\Installer;
 
 class RegisterDefaultPermissions
 {
-
     public $defaultPermissions = [
 
         'manage-menu' => [
