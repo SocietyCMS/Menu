@@ -106,7 +106,7 @@ class MenuServiceProvider extends ServiceProvider
      */
     private function defineMenuBuilder()
     {
-        if (!$this->app['society.isInstalled']) {
+        if (! $this->app['society.isInstalled']) {
             return;
         }
 

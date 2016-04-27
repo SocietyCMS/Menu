@@ -105,7 +105,7 @@ class MenuBuilder
      */
     private function buildSubjectItem($menu, $item)
     {
-        if (!empty($item->subject_type) && !is_null($item->subject)) {
+        if (! empty($item->subject_type) && ! is_null($item->subject)) {
             return $menu->add($item->name, ['url' => $item->subject->getRouteForMenuItem()]);
         }
 
