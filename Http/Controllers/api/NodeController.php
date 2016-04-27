@@ -58,7 +58,7 @@ class NodeController extends ApiBaseController
      */
     protected function moveNode(Request $request, $node)
     {
-        if (!$request->target_node) {
+        if (! $request->target_node) {
             return;
         }
 
@@ -73,7 +73,7 @@ class NodeController extends ApiBaseController
 
             $node->appendTo($target_node);
 
-            if (!is_null($before)) {
+            if (! is_null($before)) {
                 $node->beforeNode($before);
             }
             $node->save();
