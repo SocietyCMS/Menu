@@ -23,7 +23,7 @@
 			<div id="tree1"></div>
 		</div>
 		<div class="six wide column" v-show="selectedNode.id">
-			<div class="ui attached segment">
+			<div class="ui top attached segment">
 				<div class="ui huge fluid input">
 					<input type="text" v-model="selectedNode.name">
 				</div>
