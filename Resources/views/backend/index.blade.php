@@ -8,12 +8,12 @@
 
 	<div class="ui primary button" id="createLink" v-on:click="createLink">
 		<i class="linkify icon"></i>
-		New Link
+		{{trans('core::elements.action.create resource', ['name'=>trans('menu::menu.title.link')])}}
 	</div>
 
 	<div class="ui blue basic button" id="createMenu">
 		<i class="sidebar icon"></i>
-		New Menu
+		{{trans('core::elements.action.create resource', ['name'=>trans('menu::menu.title.menu')])}}
 	</div>
 
 	<div class="ui hidden divider"></div>
@@ -33,14 +33,14 @@
 				<div class="ui styled fluid accordion">
 					<div class="title" >
 						<i class="dropdown icon"></i>
-						Link to Content
+						{{ trans('menu::menu.form.link to content') }}
 					</div>
 					<div class="content" data-useSubject="true">
 
 						<div class="ui fluid search selection dropdown item-subject">
 							<input type="hidden" name="subject">
 							<i class="dropdown icon"></i>
-							<div class="default text">Select Content</div>
+							<div class="default text">{{ trans('menu::menu.form.select content') }}</div>
 							<div class="menu">
 
 								@foreach($extenders as $module => $collection)
@@ -62,13 +62,13 @@
 					</div>
 					<div class="title">
 						<i class="dropdown icon"></i>
-						Custom URL
+						{{ trans('menu::menu.form.custom url') }}
 					</div>
 					<div class="content" data-useSubject="false">
 
 						<div class="ui form">
 							<div class="field">
-								<label>URL</label>
+								<label>{{ trans('menu::menu.form.url') }}</label>
 
 								<select name="url" class="ui fluid search dropdown item-url">
 									@foreach($extenders as $module => $collection)
@@ -86,7 +86,7 @@
 
 				<div class="ui toggle checkbox">
 					<input type="checkbox" name="active" v-model="selectedNode.active">
-					<label>Show this Link</label>
+					<label>{{ trans('menu::menu.form.show this link') }}</label>
 				</div>
 
                 <div class="ui hidden divider"></div>
@@ -94,19 +94,19 @@
                 <div class="ui accordion field">
                     <div class="title">
                         <i class="icon dropdown"></i>
-                        Optional Details
+						{{ trans('core::elements.button.optional details') }}
                     </div>
                     <div class="content field ui form">
                         <div class="field">
-                            <label>Id Attribute</label>
+                            <label>{{ trans('menu::menu.form.id attribute') }}</label>
                             <input type="text" v-model="selectedNode.attribute_id">
                         </div>
                         <div class="field">
-                            <label>Class Attribute</label>
+                            <label>{{ trans('menu::menu.form.class attribute') }}</label>
                             <input type="text" v-model="selectedNode.attribute_class">
                         </div>
                         <div class="field">
-                            <label>Target Attribute</label>
+                            <label>{{ trans('menu::menu.form.target attribute') }}</label>
                             <input type="text" v-model="selectedNode.attribute_target">
                         </div>
                     </div>
@@ -115,7 +115,7 @@
 			</div>
 			<div class="ui bottom attached segment">
 				<a class="ui primary button" @click="updateNode">
-					Save
+					{{trans('core::elements.button.save')}}
 				</a>
 			</div>
 
