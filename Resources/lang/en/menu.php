@@ -3,7 +3,7 @@
 return [
     'title' => [
         'menu' => 'Menu',
-        'link' => 'Link'
+        'link' => 'Link',
     ],
     'modal' => [
         'create menu' => 'Create a new Menu',
