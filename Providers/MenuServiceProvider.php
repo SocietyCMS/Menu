@@ -34,10 +34,6 @@ class MenuServiceProvider extends ServiceProvider
         $this->modules = $modules;
         $this->container = $container;
 
-        $this->registerConfig();
-        $this->registerTranslations();
-        $this->registerViews();
-
         App::booted(function ($app) {
             $this->defineMenuBuilder();
         });
@@ -50,55 +46,6 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    }
-
-    /**
-     * Register config.
-     *
-     * @return void
-     */
-    protected function registerConfig()
-    {
-        $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('menu.php'),
-        ]);
-        $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'menu'
-        );
-    }
-
-    /**
-     * Register views.
-     *
-     * @return void
-     */
-    public function registerViews()
-    {
-        $viewPath = base_path('resources/views/modules/menu');
-
-        $sourcePath = __DIR__.'/../Resources/views';
-
-        $this->publishes([
-            $sourcePath => $viewPath,
-        ]);
-
-        $this->loadViewsFrom([$viewPath, $sourcePath], 'menu');
-    }
-
-    /**
-     * Register translations.
-     *
-     * @return void
-     */
-    public function registerTranslations()
-    {
-        $langPath = base_path('resources/lang/modules/menu');
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'menu');
-        } else {
-            $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'menu');
-        }
     }
 
     /**
