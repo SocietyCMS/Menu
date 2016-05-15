@@ -9,6 +9,6 @@ $api->version('v1', function ($api) {
     ], function ($api) {
 
         $api->resource('menu', 'MenuController', ['only' => ['index', 'store']]);
-        $api->resource('node', 'NodeController', ['only' => ['index', 'store', 'show', 'update']]);
+        $api->resource('node', 'NodeController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
     });
 });

@@ -144,7 +144,22 @@ var MenuVueApp = new Vue({
                 this.selectedNode = response.data;
                 this.reloadTree();
             }.bind(this));
-        }
+        },
+
+        deleteNode: function () {
+
+            var resource = this.$resource(societycms.api.menu.node.destroy);
+            resource.delete({node:this.selectedNode.id}, this.selectedNode,function (response) {
+                this.selectedNode = {
+                    id: null,
+                    name: null,
+                    url: null,
+                    active:null
+                };
+                this.reloadTree();
+            }.bind(this));
+        },
+
     }
 });
 

@@ -89,4 +89,17 @@ class NodeController extends ApiBaseController
         }
         $node->update($request->input());
     }
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $node = Menu::where('id', $id)->first();
+        $node->delete();
+
+        return $this->response()->noContent();
+    }
 }

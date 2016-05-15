@@ -117,6 +117,9 @@
 				<a class="ui primary button" @click="updateNode">
 					{{trans('core::elements.button.save')}}
 				</a>
+				<a class="ui red text" href="#" @click="deleteNode">
+				{{trans('core::elements.button.delete')}}
+				</a>
 			</div>
 
 		</div>
