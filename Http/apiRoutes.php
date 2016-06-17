@@ -7,7 +7,6 @@ $api->version('v1', function ($api) {
         'middleware' => config('society.core.core.middleware.api.backend', []),
         'providers'  => ['jwt'],
     ], function ($api) {
-
         $api->resource('menu', 'MenuController', ['only' => ['index', 'store']]);
         $api->resource('node', 'NodeController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
     });
