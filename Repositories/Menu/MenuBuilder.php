@@ -94,6 +94,7 @@ class MenuBuilder
                 $menuItem = $this->buildStaticItem($menu, $item);
             }
             $this->addMenuItemProperties($menuItem, $item);
+            $this->buildMenuItems($menuItem, $item);
         }
     }
 
