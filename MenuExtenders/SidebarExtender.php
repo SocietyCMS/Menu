@@ -42,7 +42,6 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                     $this->auth->can('menu::manage-menu')
                 );
             });
-
         });
 
         return $menu;
